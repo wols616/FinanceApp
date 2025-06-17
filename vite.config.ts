@@ -10,5 +10,6 @@ export default defineConfig({
   base: "/",
   build: {
     target: "esnext", // o puedes usar una versión específica: 'es2022'
+    outDir: "dist",
   },
 });
