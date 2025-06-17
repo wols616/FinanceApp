@@ -7,6 +7,7 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ["lucide-react"],
   },
+  base: "/",
   build: {
     target: "esnext", // o puedes usar una versión específica: 'es2022'
   },
