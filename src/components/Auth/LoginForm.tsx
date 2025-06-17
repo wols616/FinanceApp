@@ -1,48 +1,54 @@
-import React, { useState } from 'react';
-import { useAuth } from '../../context/AuthContext';
-import { LogIn, TrendingUp, Eye, EyeOff, UserPlus } from 'lucide-react';
-import { isSupabaseConfigured } from '../../lib/supabase';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
+import { LogIn, TrendingUp, Eye, EyeOff, UserPlus } from "lucide-react";
+import { isSupabaseConfigured } from "../../lib/supabase";
+import { useNavigate } from "react-router-dom";
 
 export const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   const { login, register, isLoading } = useAuth();
   const [isRegisterMode, setIsRegisterMode] = useState(false);
   const [formData, setFormData] = useState({
-    email: 'wilber.rivas2003@gmail.com',
-    password: 'demo123',
-    name: ''
+    email: "",
+    password: "",
+    name: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
-    
+    setError("");
+
     if (isRegisterMode) {
       if (!isSupabaseConfigured()) {
-        setError('Registro no disponible en modo demo. Por favor conecta Supabase.');
+        setError(
+          "Registro no disponible en modo demo. Por favor conecta Supabase."
+        );
         return;
       }
-      
-      const result = await register(formData.email, formData.password, formData.name);
+
+      const result = await register(
+        formData.email,
+        formData.password,
+        formData.name
+      );
       if (!result.success) {
-        setError(result.error || 'Error al registrar usuario');
+        setError(result.error || "Error al registrar usuario");
       }
     } else {
       const success = await login(formData.email, formData.password);
       if (!success) {
-        setError('Credenciales incorrectas');
+        setError("Credenciales incorrectas");
       } else {
-        navigate('/dashboard');
+        navigate("/dashboard");
       }
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -63,7 +69,8 @@ export const LoginForm: React.FC = () => {
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
               <p className="text-sm text-orange-700">
-                <strong>Modo Demo:</strong> Conecta Supabase para funcionalidad completa
+                <strong>Modo Demo:</strong> Conecta Supabase para funcionalidad
+                completa
               </p>
             </div>
           </div>
@@ -73,13 +80,12 @@ export const LoginForm: React.FC = () => {
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
           <div className="mb-6">
             <h2 className="text-2xl font-semibold text-gray-900 text-center">
-              {isRegisterMode ? 'Crear Cuenta' : 'Iniciar Sesión'}
+              {isRegisterMode ? "Crear Cuenta" : "Iniciar Sesión"}
             </h2>
             <p className="text-gray-600 text-center mt-2">
-              {isRegisterMode 
-                ? 'Regístrate para comenzar a gestionar tus finanzas'
-                : 'Accede a tu cuenta para gestionar tus finanzas'
-              }
+              {isRegisterMode
+                ? "Regístrate para comenzar a gestionar tus finanzas"
+                : "Accede a tu cuenta para gestionar tus finanzas"}
             </p>
           </div>
 
@@ -128,7 +134,7 @@ export const LoginForm: React.FC = () => {
               </label>
               <div className="relative">
                 <input
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
@@ -141,7 +147,11 @@ export const LoginForm: React.FC = () => {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
                 >
-                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  {showPassword ? (
+                    <EyeOff className="w-5 h-5" />
+                  ) : (
+                    <Eye className="w-5 h-5" />
+                  )}
                 </button>
               </div>
             </div>
@@ -155,8 +165,14 @@ export const LoginForm: React.FC = () => {
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
               ) : (
                 <>
-                  {isRegisterMode ? <UserPlus className="w-5 h-5" /> : <LogIn className="w-5 h-5" />}
-                  <span>{isRegisterMode ? 'Crear Cuenta' : 'Iniciar Sesión'}</span>
+                  {isRegisterMode ? (
+                    <UserPlus className="w-5 h-5" />
+                  ) : (
+                    <LogIn className="w-5 h-5" />
+                  )}
+                  <span>
+                    {isRegisterMode ? "Crear Cuenta" : "Iniciar Sesión"}
+                  </span>
                 </>
               )}
             </button>
@@ -167,15 +183,14 @@ export const LoginForm: React.FC = () => {
             <button
               onClick={() => {
                 setIsRegisterMode(!isRegisterMode);
-                setError('');
-                setFormData(prev => ({ ...prev, name: '' }));
+                setError("");
+                setFormData((prev) => ({ ...prev, name: "" }));
               }}
               className="text-blue-600 hover:text-blue-700 font-medium"
             >
-              {isRegisterMode 
-                ? '¿Ya tienes cuenta? Inicia sesión'
-                : '¿No tienes cuenta? Regístrate'
-              }
+              {isRegisterMode
+                ? "¿Ya tienes cuenta? Inicia sesión"
+                : "¿No tienes cuenta? Regístrate"}
             </button>
           </div>
 
@@ -187,8 +202,12 @@ export const LoginForm: React.FC = () => {
                 Usa estas credenciales para probar la aplicación:
               </p>
               <div className="text-sm text-blue-800 space-y-1">
-                <p><strong>Email:</strong> demo@financeapp.com</p>
-                <p><strong>Contraseña:</strong> demo123</p>
+                <p>
+                  <strong>Email:</strong> demo@financeapp.com
+                </p>
+                <p>
+                  <strong>Contraseña:</strong> demo123
+                </p>
               </div>
             </div>
           )}
