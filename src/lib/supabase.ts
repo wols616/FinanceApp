@@ -1,5 +1,5 @@
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabaseUrl = 'https://xlhuozhevoicqpyiynhp.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhsaHVvemhldm9pY3FweWl5bmhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2NTMyOTksImV4cCI6MjA2NTIyOTI5OX0.3rmWeLAe_1hBU2PYN-B4QmcZuf8f2lUPJoIOLrinxjE';
 
 // Check if Supabase is configured
 export const isSupabaseConfigured = () => {
